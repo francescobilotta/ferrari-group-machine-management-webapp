@@ -322,7 +322,7 @@ function MachinePageContent() {
   }, [daysMissingQty.length]);
 
   return retrievedMachine ? (
-    <Stack direction="column" sx={{ maxWidth: 1000 }}>
+    <Stack direction="column" sx={{ maxWidth: 860 }}>
       {machineError ||
         progressError ||
         stopError ||

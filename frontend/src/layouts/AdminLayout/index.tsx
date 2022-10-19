@@ -38,7 +38,6 @@ const style = {
     backgroundColor: (theme: Theme) => theme.palette.background.default,
     display: "flex",
     height: "100%",
-    maxWidth: 1000,
     width: "100%",
   },
 };

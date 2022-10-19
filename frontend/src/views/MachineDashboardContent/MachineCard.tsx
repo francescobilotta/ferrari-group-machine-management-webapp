@@ -24,8 +24,8 @@ function MachineCard({ machine }: IProps) {
           display: "flex",
           justifyContent: "center",
           m: 5,
-          minHeight: 235,
-          minWidth: 235,
+          minHeight: 200,
+          minWidth: 200,
         }}
       >
         <Typography sx={{ color: "#fff", fontWeight: 800 }} variant="h3">
