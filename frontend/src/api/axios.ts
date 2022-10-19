@@ -4,7 +4,7 @@ import axios from "axios";
 const api = axios.create({
   // baseURL: "http://localhost:5000",
   baseURL:
-    "http://localhost/ferrari-group-machine-management-webapp/backend/public/index.php",
+    "https://scrubbed-peacetime.000webhostapp.com/ferrari-group-machines-management-webapp/backend/public/index.php",
 });
 export default api;
 export const EndPoints = {
