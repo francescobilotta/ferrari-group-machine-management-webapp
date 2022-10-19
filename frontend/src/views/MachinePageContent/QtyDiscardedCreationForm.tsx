@@ -93,7 +93,6 @@ function QtyDiscardedCreationForm({
               )}
             </Select>
             <TextField
-              autoFocus
               fullWidth
               label="Quantità Scartata"
               sx={{ width: "25ch" }}
