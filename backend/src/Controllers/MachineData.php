@@ -6,6 +6,7 @@ use Http\Request;
 use Http\Response;
 
 include "utils/launchQuery.php";
+include __DIR__ . "/../env.php";
 
 class MachineData
 {
@@ -15,18 +16,18 @@ class MachineData
 
     public function __construct(Request $request, Response $response)
     {
+        global $prefixPath;
         $this->request = $request;
         $this->response = $response;
         $this->data = file_get_contents(
-            "http://localhost" .
-                getenv("PREFIX_PATH") .
-                "data/oraclemacchine.json"
+            "http://localhost" . $prefixPath . "data/oraclemacchine.json"
         );
     }
 
     public function get()
     {
-        if (getenv("ENVIRONMENT") === "development") {
+        global $environment;
+        if ($environment === "development") {
             $data = json_decode($this->data, true);
         } else {
             $query = "SELECT * FROM `ferrari-group`.oraclemacchine;";
@@ -42,7 +43,8 @@ class MachineData
 
     public function put()
     {
-        if (getenv("ENVIRONMENT") === "development") {
+        global $environment;
+        if ($environment === "development") {
             $data = json_decode($this->data, true);
             $sentData = [
                 "COD_MACCHINA" => $this->request->getParameter("COD_MACCHINA"),

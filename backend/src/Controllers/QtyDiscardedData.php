@@ -5,6 +5,8 @@ namespace App\Controllers;
 use Http\Request;
 use Http\Response;
 
+include __DIR__ . "/../env.php";
+
 class QtyDiscardedData
 {
     private $request;
@@ -13,18 +15,20 @@ class QtyDiscardedData
 
     public function __construct(Request $request, Response $response)
     {
+        global $prefixPath;
         $this->request = $request;
         $this->response = $response;
         $this->data = file_get_contents(
             "http://localhost" .
-                getenv("PREFIX_PATH") .
+            $prefixPath .
                 "data/ordiniqtascartata.json"
         );
     }
 
     public function get()
     {
-        if (getenv("ENVIRONMENT") === "development") {
+        global $environment;
+        if ($environment === "development") {
             $data = json_decode($this->data);
             header("Content-Type: application/json; charset=utf-8");
             $this->response->setContent(json_encode($data));
@@ -37,7 +41,8 @@ class QtyDiscardedData
 
     public function post()
     {
-        if (getenv("ENVIRONMENT") === "development") {
+        global $environment;
+        if ($environment === "development") {
             $data = json_decode($this->data, true);
             $sentData = [
                 "opsid" => (int) $this->request->getParameter("opsid"),
@@ -84,7 +89,8 @@ class QtyDiscardedData
 
     public function put()
     {
-        if (getenv("ENVIRONMENT") === "development") {
+        global $environment;
+        if ($environment === "development") {
             $data = json_decode($this->data, true);
             $sentData = [
                 "id" => (int) $this->request->getParameter("id"),
@@ -127,7 +133,8 @@ class QtyDiscardedData
 
     public function delete()
     {
-        if (getenv("ENVIRONMENT") === "development") {
+        global $environment;
+        if ($environment === "development") {
             $data = json_decode($this->data, true);
             $sentData = (int) $this->request->getParameter("id");
             $resultData = [];

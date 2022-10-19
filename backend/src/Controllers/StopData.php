@@ -5,6 +5,8 @@ namespace App\Controllers;
 use Http\Request;
 use Http\Response;
 
+include __DIR__ . "/../env.php";
+
 class StopData
 {
     private $request;
@@ -13,16 +15,18 @@ class StopData
 
     public function __construct(Request $request, Response $response)
     {
+        global $prefixPath;
         $this->request = $request;
         $this->response = $response;
         $this->data = file_get_contents(
-            "http://localhost" . getenv("PREFIX_PATH") . "data/fermi.json"
+            "http://localhost" . $prefixPath . "data/fermi.json"
         );
     }
 
     public function get()
     {
-        if (getenv("ENVIRONMENT") === "development") {
+        global $environment;
+        if ($environment === "development") {
             $data = json_decode($this->data);
             header("Content-Type: application/json; charset=utf-8");
             $this->response->setContent(json_encode($data));
@@ -35,7 +39,8 @@ class StopData
 
     public function post()
     {
-        if (getenv("ENVIRONMENT") === "development") {
+        global $environment;
+        if ($environment === "development") {
             $data = json_decode($this->data, true);
             $sentData = [
                 "macchina" => $this->request->getParameter("macchina"),
@@ -81,7 +86,8 @@ class StopData
 
     public function put()
     {
-        if (getenv("ENVIRONMENT") === "development") {
+        global $environment;
+        if ($environment === "development") {
             $data = json_decode($this->data, true);
             $sentData = [
                 "id" => (int) $this->request->getParameter("id"),
@@ -124,7 +130,8 @@ class StopData
 
     public function delete()
     {
-        if (getenv("ENVIRONMENT") === "development") {
+        global $environment;
+        if ($environment === "development") {
             $data = json_decode($this->data, true);
             $sentData = (int) $this->request->getParameter("id");
             $resultData = [];

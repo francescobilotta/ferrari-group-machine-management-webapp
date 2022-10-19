@@ -3,14 +3,9 @@
 namespace App;
 
 require __DIR__ . "/../vendor/autoload.php";
+include "env.php";
 
 error_reporting(E_ALL);
-
-$environment = "development";
-//$environment = "production";
-$prefixPath = "/ferrari-group-machine-management-webapp/backend/public/";
-putenv("ENVIRONMENT=$environment");
-putenv("PREFIX_PATH=$prefixPath");
 
 /**
  * Register the error handler

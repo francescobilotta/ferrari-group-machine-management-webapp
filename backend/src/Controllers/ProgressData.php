@@ -5,6 +5,8 @@ namespace App\Controllers;
 use Http\Request;
 use Http\Response;
 
+include __DIR__ . "/../env.php";
+
 class ProgressData
 {
     private $request;
@@ -13,18 +15,20 @@ class ProgressData
 
     public function __construct(Request $request, Response $response)
     {
+        global $prefixPath;
         $this->request = $request;
         $this->response = $response;
         $this->data = file_get_contents(
             "http://localhost" .
-                getenv("PREFIX_PATH") .
+            $prefixPath .
                 "data/ordiniavanzamenti.json"
         );
     }
 
     public function get()
     {
-        if (getenv("ENVIRONMENT") === "development") {
+        global $environment;
+        if ($environment === "development") {
             $data = json_decode($this->data);
             header("Content-Type: application/json; charset=utf-8");
             $this->response->setContent(json_encode($data));
@@ -37,7 +41,8 @@ class ProgressData
 
     public function post()
     {
-        if (getenv("ENVIRONMENT") === "development") {
+        global $environment;
+        if ($environment === "development") {
             $data = json_decode($this->data, true);
             $sentData = [
                 "opsid" => (int) $this->request->getParameter("opsid"),
@@ -86,7 +91,8 @@ class ProgressData
 
     public function put()
     {
-        if (getenv("ENVIRONMENT") === "development") {
+        global $environment;
+        if ($environment === "development") {
             $data = json_decode($this->data, true);
             $sentData = [
                 "id" => (int) $this->request->getParameter("id"),
@@ -132,7 +138,8 @@ class ProgressData
 
     public function delete()
     {
-        if (getenv("ENVIRONMENT") === "development") {
+        global $environment;
+        if ($environment === "development") {
             $data = json_decode($this->data, true);
             $sentData = (int) $this->request->getParameter("id");
             $resultData = [];
