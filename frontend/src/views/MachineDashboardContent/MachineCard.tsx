@@ -23,12 +23,12 @@ function MachineCard({ machine }: IProps) {
           borderRadius: "15%",
           display: "flex",
           justifyContent: "center",
-          m: 5,
+          m: 3,
           minHeight: 200,
           minWidth: 200,
         }}
       >
-        <Typography sx={{ color: "#fff", fontWeight: 800 }} variant="h3">
+        <Typography sx={{ color: "#fff", fontWeight: 800 }} variant="h4">
           {machine.COD_MACCHINA}
         </Typography>
       </Box>
