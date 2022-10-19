@@ -94,11 +94,11 @@ function Row({ opening, openings, progresses, stops, handleDelete }: IProps) {
           )}
         </TableCell>
         <TableCell>
-          {opening.inizioeffettivo !== "0000-00-00 00:00:00"
+          {opening.fineeffettiva !== "0000-00-00 00:00:00"
             ? moment(opening.fineeffettiva, "YYYY-MM-DD HH:mm:ss").format(
                 "DD/MM/YYYY HH:mm:ss"
               )
-            : opening.inizioeffettivo}
+            : opening.fineeffettiva}
         </TableCell>
         <TableCell>{opening.modificato}</TableCell>
         <TableCell>
