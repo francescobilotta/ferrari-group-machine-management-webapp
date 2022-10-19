@@ -16,10 +16,11 @@ class StopData
     public function __construct(Request $request, Response $response)
     {
         global $prefixPath;
+        global $website;
         $this->request = $request;
         $this->response = $response;
         $this->data = file_get_contents(
-            "http://localhost" . $prefixPath . "data/fermi.json"
+            $website . $prefixPath . "data/fermi.json"
         );
     }
 

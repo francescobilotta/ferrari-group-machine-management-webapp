@@ -16,10 +16,11 @@ class ProgressData
     public function __construct(Request $request, Response $response)
     {
         global $prefixPath;
+        global $website;
         $this->request = $request;
         $this->response = $response;
         $this->data = file_get_contents(
-            "http://localhost" .
+            $website .
             $prefixPath .
                 "data/ordiniavanzamenti.json"
         );
