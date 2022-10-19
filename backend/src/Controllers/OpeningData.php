@@ -43,6 +43,8 @@ class OpeningData
     public function post()
     {
         global $environment;
+        global $absolutePrePath;
+        global $prefixPath;
         if ($environment === "development") {
             $data = json_decode($this->data, true);
             $sentData = [
@@ -87,7 +89,7 @@ class OpeningData
             array_push($data, $sentData);
             $newJsonData = json_encode($data);
             file_put_contents(
-                "/var/www/html/ferrari-group-machine-management-webapp/backend/public/data/apertureimpianti.json",
+                $absolutePrePath . $prefixPath . "data/apertureimpianti.json",
                 $newJsonData
             );
         } else {
@@ -100,6 +102,8 @@ class OpeningData
     public function put()
     {
         global $environment;
+        global $absolutePrePath;
+        global $prefixPath;
         if ($environment === "development") {
             $data = json_decode($this->data, true);
             $sentData = [
@@ -146,7 +150,7 @@ class OpeningData
             $newJsonData = json_encode($data);
 
             file_put_contents(
-                "/var/www/html/ferrari-group-machine-management-webapp/backend/public/data/apertureimpianti.json",
+                $absolutePrePath . $prefixPath . "data/apertureimpianti.json",
                 $newJsonData
             );
         } else {
@@ -160,6 +164,8 @@ class OpeningData
     public function delete()
     {
         global $environment;
+        global $absolutePrePath;
+        global $prefixPath;
         if ($environment === "development") {
             $data = json_decode($this->data, true);
             $sentData = (int) $this->request->getParameter("id");
@@ -171,7 +177,7 @@ class OpeningData
             }
             $newJsonData = json_encode($resultData);
             file_put_contents(
-                "/var/www/html/ferrari-group-machine-management-webapp/backend/public/data/apertureimpianti.json",
+                $absolutePrePath . $prefixPath . "data/apertureimpianti.json",
                 $newJsonData
             );
         } else {

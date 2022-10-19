@@ -43,6 +43,8 @@ class QtyDiscardedData
     public function post()
     {
         global $environment;
+        global $absolutePrePath;
+        global $prefixPath;
         if ($environment === "development") {
             $data = json_decode($this->data, true);
             $sentData = [
@@ -77,7 +79,7 @@ class QtyDiscardedData
             array_push($data, $sentData);
             $newJsonData = json_encode($data);
             file_put_contents(
-                "/var/www/html/ferrari-group-machine-management-webapp/backend/public/data/ordiniqtascartata.json",
+                $absolutePrePath . $prefixPath . "data/ordiniqtascartata.json",
                 $newJsonData
             );
         } else {
@@ -91,6 +93,8 @@ class QtyDiscardedData
     public function put()
     {
         global $environment;
+        global $absolutePrePath;
+        global $prefixPath;
         if ($environment === "development") {
             $data = json_decode($this->data, true);
             $sentData = [
@@ -121,7 +125,7 @@ class QtyDiscardedData
             }
             $newJsonData = json_encode($data);
             file_put_contents(
-                "/var/www/html/ferrari-group-machine-management-webapp/backend/public/data/ordiniqtascartata.json",
+                $absolutePrePath . $prefixPath . "data/ordiniqtascartata.json",
                 $newJsonData
             );
         } else {
@@ -135,6 +139,8 @@ class QtyDiscardedData
     public function delete()
     {
         global $environment;
+        global $absolutePrePath;
+        global $prefixPath;
         if ($environment === "development") {
             $data = json_decode($this->data, true);
             $sentData = (int) $this->request->getParameter("id");
@@ -146,7 +152,7 @@ class QtyDiscardedData
             }
             $newJsonData = json_encode($resultData);
             file_put_contents(
-                "/var/www/html/ferrari-group-machine-management-webapp/backend/public/data/ordiniqtascartata.json",
+                $absolutePrePath . $prefixPath . "data/ordiniqtascartata.json",
                 $newJsonData
             );
         } else {

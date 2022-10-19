@@ -29,6 +29,8 @@ class ProgressData
     public function get()
     {
         global $environment;
+        global $absolutePrePath;
+        global $prefixPath;
         if ($environment === "development") {
             $data = json_decode($this->data);
             header("Content-Type: application/json; charset=utf-8");
@@ -43,6 +45,8 @@ class ProgressData
     public function post()
     {
         global $environment;
+        global $absolutePrePath;
+        global $prefixPath;
         if ($environment === "development") {
             $data = json_decode($this->data, true);
             $sentData = [
@@ -79,7 +83,7 @@ class ProgressData
             array_push($data, $sentData);
             $newJsonData = json_encode($data);
             file_put_contents(
-                "/var/www/html/ferrari-group-machine-management-webapp/backend/public/data/ordiniavanzamenti.json",
+                $absolutePrePath . $prefixPath . "data/ordiniavanzamenti.json",
                 $newJsonData
             );
         } else {
@@ -93,6 +97,8 @@ class ProgressData
     public function put()
     {
         global $environment;
+        global $absolutePrePath;
+        global $prefixPath;
         if ($environment === "development") {
             $data = json_decode($this->data, true);
             $sentData = [
@@ -126,7 +132,7 @@ class ProgressData
             }
             $newJsonData = json_encode($data);
             file_put_contents(
-                "/var/www/html/ferrari-group-machine-management-webapp/backend/public/data/ordiniavanzamenti.json",
+                $absolutePrePath . $prefixPath . "data/ordiniavanzamenti.json",
                 $newJsonData
             );
         } else {
@@ -140,6 +146,8 @@ class ProgressData
     public function delete()
     {
         global $environment;
+        global $absolutePrePath;
+        global $prefixPath;
         if ($environment === "development") {
             $data = json_decode($this->data, true);
             $sentData = (int) $this->request->getParameter("id");
@@ -151,7 +159,7 @@ class ProgressData
             }
             $newJsonData = json_encode($resultData);
             file_put_contents(
-                "/var/www/html/ferrari-group-machine-management-webapp/backend/public/data/ordiniavanzamenti.json",
+                $absolutePrePath . $prefixPath . "data/ordiniavanzamenti.json",
                 $newJsonData
             );
         } else {

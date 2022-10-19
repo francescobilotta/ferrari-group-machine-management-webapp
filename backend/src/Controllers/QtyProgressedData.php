@@ -43,6 +43,8 @@ class QtyProgressedData
     public function post()
     {
         global $environment;
+        global $absolutePrePath;
+        global $prefixPath;
         if ($environment === "development") {
             $data = json_decode($this->data, true);
             $sentData = [
@@ -76,7 +78,7 @@ class QtyProgressedData
             array_push($data, $sentData);
             $newJsonData = json_encode($data);
             file_put_contents(
-                "/var/www/html/ferrari-group-machine-management-webapp/backend/public/data/ordiniqtaavanzata.json",
+                $absolutePrePath . $prefixPath . "data/ordiniqtaavanzata.json",
                 $newJsonData
             );
         } else {
@@ -90,6 +92,8 @@ class QtyProgressedData
     public function put()
     {
         global $environment;
+        global $absolutePrePath;
+        global $prefixPath;
         if ($environment === "development") {
             $data = json_decode($this->data, true);
             $sentData = [
@@ -118,7 +122,7 @@ class QtyProgressedData
             }
             $newJsonData = json_encode($data);
             file_put_contents(
-                "/var/www/html/ferrari-group-machine-management-webapp/backend/public/data/ordiniqtaavanzata.json",
+                $absolutePrePath . $prefixPath . "data/ordiniqtaavanzata.json",
                 $newJsonData
             );
         } else {
@@ -132,6 +136,8 @@ class QtyProgressedData
     public function delete()
     {
         global $environment;
+        global $absolutePrePath;
+        global $prefixPath;
         if ($environment === "development") {
             $data = json_decode($this->data, true);
             $sentData = (int) $this->request->getParameter("id");
@@ -143,7 +149,7 @@ class QtyProgressedData
             }
             $newJsonData = json_encode($resultData);
             file_put_contents(
-                "/var/www/html/ferrari-group-machine-management-webapp/backend/public/data/ordiniqtaavanzata.json",
+                $absolutePrePath . $prefixPath . "data/ordiniqtaavanzata.json",
                 $newJsonData
             );
         } else {

@@ -45,6 +45,8 @@ class MachineData
     public function put()
     {
         global $environment;
+        global $absolutePrePath;
+        global $prefixPath;
         if ($environment === "development") {
             $data = json_decode($this->data, true);
             $sentData = [
@@ -64,7 +66,7 @@ class MachineData
                 }
             }
             file_put_contents(
-                "/var/www/html/ferrari-group-machine-management-webapp/backend/public/data/oraclemacchine.json",
+                $absolutePrePath . $prefixPath . "data/oraclemacchine.json",
                 json_encode($data)
             );
         } else {
