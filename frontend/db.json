@@ -1,0 +1,213 @@
+{
+  "fermi": [
+    {
+      "id": 3,
+      "macchina": "IMEX120",
+      "data": "2022-09-23",
+      "iniziofermo": "2022-09-23 08:35:00",
+      "finefermo": "2022-09-27 08:42:00",
+      "causale": 4,
+      "datacreazione": "2022-09-28 08:42:00",
+      "disabilitato": 0
+    }
+  ],
+  "apertureimpianti": [
+    {
+      "id": 1,
+      "macchina": "IMEX120",
+      "data": "2022-09-19",
+      "iniziopianificato": "2022-09-19 09:00:00",
+      "inizioeffettivo": "0000-00-00 00:00:00",
+      "finepianificata": "2022-09-19 18:00:00",
+      "fineeffettiva": "0000-00-00 00:00:00",
+      "datacreazione": "2022-09-21 13:28:00",
+      "modificato": 0,
+      "disabilitato": 0
+    }
+  ],
+  "mysqlordini": [
+    {
+      "ID": 14,
+      "tipoord": "OPS",
+      "sigla": "A",
+      "numord": 733,
+      "esercizio": 2017,
+      "reparto": "STAMP",
+      "cdl": "NB90",
+      "cdlold": "NB90",
+      "seq": 117,
+      "seqold": 117,
+      "setupass": 2,
+      "cambiofig": 1,
+      "note": "aaaa",
+      "turno": "T5",
+      "tipofermo": "G",
+      "orefermo": 2,
+      "evaso": 1,
+      "macinato": 0,
+      "essica": 0,
+      "scalda": 0,
+      "qtaorig": 1,
+      "qtaavanzata": 0,
+      "qtascartata": 0
+    }
+  ],
+  "ordini": [
+    {
+      "seq": 117,
+      "note": "aaaa",
+      "cdl": "NB90",
+      "ID": 14,
+      "QTAORD": 15000
+    }
+  ],
+  "ordiniavanzamenti": [
+    {
+      "id": 1,
+      "opsid": 3644,
+      "data": "2022-09-22",
+      "inizioavanzamento": "2022-09-22 13:18:00",
+      "fineavanzamento": "2022-09-27 08:42:00",
+      "datacreazione": "2022-09-22 13:18:00",
+      "disabilitato": 0
+    }
+  ],
+  "ordiniqtaavanzata": [
+    {
+      "id": 1,
+      "opsid": 3644,
+      "data": "2022-09-22",
+      "qtaavanzata": 1,
+      "datacreazione": "2022-09-22 13:21:00",
+      "disabilitato": 0
+    }
+  ],
+  "ordiniqtascartata": [
+    {
+      "id": 1,
+      "opsid": 3644,
+      "data": "2022-09-22",
+      "qtascartata": 1,
+      "causale": 1,
+      "datacreazione": "2022-09-22 13:21:00",
+      "disabilitato": 0
+    }
+  ],
+  "causali": [
+    {
+      "id": 1,
+      "tipo": "scarto",
+      "descrizione": "inizioproduzione",
+      "disabilitato": 0
+    },
+    {
+      "id": 2,
+      "tipo": "scarto",
+      "descrizione": "colore",
+      "disabilitato": 0
+    },
+    {
+      "id": 3,
+      "tipo": "scarto",
+      "descrizione": "ritiro",
+      "disabilitato": 0
+    },
+    {
+      "id": 4,
+      "tipo": "fermo",
+      "descrizione": "setup",
+      "disabilitato": 0
+    },
+    {
+      "id": 5,
+      "tipo": "fermo",
+      "descrizione": "mancanzamateriale",
+      "disabilitato": 0
+    },
+    {
+      "id": 6,
+      "tipo": "fermo",
+      "descrizione": "mancanzaoperatore",
+      "disabilitato": 0
+    },
+    {
+      "id": 7,
+      "tipo": "fermo",
+      "descrizione": "manutenzione",
+      "disabilitato": 0
+    }
+  ],
+  "oraclemacchine": [
+    {
+      "COD_MACCHINA": "NB90B",
+      "DESCRIZIONE": "NB 90B",
+      "PRIORITA": "1",
+      "CORRIDOIO": "P01",
+      "PI_NOTE": "Matr.700866 IP.96"
+    },
+    {
+      "COD_MACCHINA": "NB90C",
+      "DESCRIZIONE": "NB90C",
+      "PRIORITA": "3",
+      "CORRIDOIO": "P02",
+      "PI_NOTE": "Matr. 700942 IP.88"
+    },
+    {
+      "COD_MACCHINA": "NB180C",
+      "DESCRIZIONE": "NB180C",
+      "PRIORITA": "3",
+      "CORRIDOIO": "P03",
+      "PI_NOTE": "Matr. 370296 IP.84"
+    },
+    {
+      "COD_MACCHINA": "IMEX200",
+      "DESCRIZIONE": "IMEX BS200T",
+      "PRIORITA": "1",
+      "CORRIDOIO": "P04",
+      "PI_NOTE": "Matr. 1204R083 IP.85"
+    },
+    {
+      "COD_MACCHINA": "NB130",
+      "DESCRIZIONE": "NB 130",
+      "PRIORITA": "1",
+      "CORRIDOIO": "P05",
+      "PI_NOTE": "Matr.1110101 IP.92"
+    }
+  ],
+  "oracleordini": [
+    {
+      "COD_ARTICOLO": "STI.201.586",
+      "COD_COMBIPROGR": null,
+      "DESCRIZIONE": "GHIERA STRINGITUBO PICCOLA IP x 2280",
+      "USOALIMENTARE": 0,
+      "COD_ESERCIZIO": 2022,
+      "COD_TIPO_DOC": "IPM",
+      "COD_NUM_DOC": 3665,
+      "DOC": "2022-IPM-3665",
+      "PI_MACCHINA": null,
+      "FINEPIANT": "27-LUG-23",
+      "QTAORD": 15000,
+      "QTACONS": 0,
+      "QTAAPER": 15000,
+      "MP": "MP.006",
+      "MPTYP": "ABS",
+      "PESOMP": "138,975",
+      "MASTER": "MP.202",
+      "COLTYP": "ROSSO",
+      "PESOCOL": "4,16925",
+      "ALTRO": null,
+      "PESOAL": 0,
+      "PAUSA": 20,
+      "MOVIMENTO": 11,
+      "N_FIGURE": 8,
+      "TEMPO_SMATAROZ": 0,
+      "PEZZI_H": 929,
+      "ORELAV": "16,14583333333333333333333333333333333333",
+      "SETUP": 2,
+      "DISABILITATO": 0,
+      "DOC_CHIUSO": 0,
+      "RIGA_CHIUSA": 0,
+      "OPSID": 14
+    }
+  ]
+}
