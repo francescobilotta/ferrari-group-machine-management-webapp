@@ -1,4 +1,4 @@
-import { Box, Link, Paper, Typography } from "@mui/material";
+import { Box, Link, Typography } from "@mui/material";
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 
@@ -16,24 +16,22 @@ function MachineCard({ machine }: IProps) {
       sx={{ textDecoration: "none" }}
       to={`${machine.COD_MACCHINA}`}
     >
-      <Paper style={{ maxHeight: 600, maxWidth: 800, overflow: "auto" }}>
-        <Box
-          sx={{
-            alignItems: "center",
-            bgcolor: machineStateColor(machine.PRIORITA),
-            borderRadius: "15%",
-            display: "flex",
-            justifyContent: "center",
-            m: 5,
-            minHeight: 275,
-            minWidth: 275,
-          }}
-        >
-          <Typography sx={{ color: "#fff", fontWeight: 800 }} variant="h3">
-            {machine.COD_MACCHINA}
-          </Typography>
-        </Box>
-      </Paper>
+      <Box
+        sx={{
+          alignItems: "center",
+          bgcolor: machineStateColor(machine.PRIORITA),
+          borderRadius: "15%",
+          display: "flex",
+          justifyContent: "center",
+          m: 5,
+          minHeight: 235,
+          minWidth: 235,
+        }}
+      >
+        <Typography sx={{ color: "#fff", fontWeight: 800 }} variant="h3">
+          {machine.COD_MACCHINA}
+        </Typography>
+      </Box>
     </Link>
   );
 }
