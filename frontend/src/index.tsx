@@ -37,8 +37,8 @@ root.render(
         <LocalizationProvider dateAdapter={AdapterMoment}>
           <SnackbarProvider
             anchorOrigin={{
-              vertical: 'top',
-              horizontal: 'center',
+              horizontal: "center",
+              vertical: "top",
             }}
           >
             <BrowserRouter>
