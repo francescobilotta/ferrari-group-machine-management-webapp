@@ -322,7 +322,7 @@ function MachinePageContent() {
   }, [daysMissingQty.length]);
 
   return retrievedMachine ? (
-    <Stack direction="column">
+    <Stack direction="column" sx={{ maxWidth: 1000 }}>
       {machineError ||
         progressError ||
         stopError ||
@@ -380,7 +380,7 @@ function MachinePageContent() {
                 </>
               )}
             </Stack>
-            <Paper>
+            <Paper sx={{ overflow: "auto" }}>
               <TableContainer>
                 <Table size="small">
                   <TableHead>

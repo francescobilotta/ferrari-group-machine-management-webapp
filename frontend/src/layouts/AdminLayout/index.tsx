@@ -13,6 +13,7 @@ const style = {
     backgroundColor: (theme: Theme) => theme.palette.background.default,
     display: "flex",
     height: "100%",
+    maxWidth: 800,
     width: "100%",
   },
 };
@@ -47,6 +48,7 @@ const MainLayout = React.forwardRef<HTMLDivElement, Props>(
     return (
       <Box ref={ref as any} sx={{ ...style.root, ...sx }}>
         <Helmet>
+          <meta content="width=device-width, initial-scale=1" name="viewport" />
           <title>{title}</title>
         </Helmet>
         <PersistentDrawerLeft

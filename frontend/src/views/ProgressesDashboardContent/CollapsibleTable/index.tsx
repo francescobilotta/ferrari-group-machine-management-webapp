@@ -96,7 +96,10 @@ function CollapsibleTable() {
           onChange={(e) => setDateSearch(e.target.value)}
         />
       </Stack>
-      <TableContainer component={Paper}>
+      <TableContainer
+        component={Paper}
+        sx={{ maxWidth: 1000, overflow: "auto" }}
+      >
         <Table aria-label="collapsible table">
           <TableHead>
             <TableRow>
