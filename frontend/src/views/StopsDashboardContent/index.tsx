@@ -14,7 +14,10 @@ function StopsDashboardContent() {
           </Typography>
         </Box>
         <Link component={RouterLink} to="/admin/create-stop">
-          <Button sx={{ bgcolor: "#1c6fe6" }} variant="contained">
+          <Button
+            sx={{ bgcolor: "#1c6fe6", textDecoration: "none" }}
+            variant="contained"
+          >
             Crea Fermo
           </Button>
         </Link>
