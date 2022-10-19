@@ -1,0 +1,37 @@
+[
+  {
+    "COD_MACCHINA": "NB90B",
+    "DESCRIZIONE": "NB 90B",
+    "PRIORITA": 1,
+    "CORRIDOIO": "P01",
+    "PI_NOTE": "Matr.700866 IP.96"
+  },
+  {
+    "COD_MACCHINA": "NB90C",
+    "DESCRIZIONE": "NB90C",
+    "PRIORITA": 1,
+    "CORRIDOIO": "P02",
+    "PI_NOTE": "Matr. 700942 IP.88"
+  },
+  {
+    "COD_MACCHINA": "NB180C",
+    "DESCRIZIONE": "NB180C",
+    "PRIORITA": 1,
+    "CORRIDOIO": "P03",
+    "PI_NOTE": "Matr. 370296 IP.84"
+  },
+  {
+    "COD_MACCHINA": "IMEX200",
+    "DESCRIZIONE": "IMEX BS200T",
+    "PRIORITA": 1,
+    "CORRIDOIO": "P04",
+    "PI_NOTE": "Matr. 1204R083 IP.85"
+  },
+  {
+    "COD_MACCHINA": "NB130",
+    "DESCRIZIONE": "NB 130",
+    "PRIORITA": 1,
+    "CORRIDOIO": "P05",
+    "PI_NOTE": "Matr.1110101 IP.92"
+  }
+]

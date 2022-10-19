@@ -1,0 +1,27 @@
+[
+  {
+    "ID": 14,
+    "tipoord": "OPS",
+    "sigla": "A",
+    "numord": 733,
+    "esercizio": 2017,
+    "reparto": "STAMP",
+    "cdl": "NB90",
+    "cdlold": "NB90",
+    "seq": 117,
+    "seqold": 117,
+    "setupass": 2,
+    "cambiofig": 1,
+    "note": "aaaa",
+    "turno": "T5",
+    "tipofermo": "G",
+    "orefermo": 2,
+    "evaso": 1,
+    "macinato": 0,
+    "essica": 0,
+    "scalda": 0,
+    "qtaorig": 1,
+    "qtaavanzata": 0,
+    "qtascartata": 0
+  }
+]

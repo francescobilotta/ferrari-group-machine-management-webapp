@@ -1,0 +1,44 @@
+[
+  {
+    "id": 1,
+    "tipo": "scarto",
+    "descrizione": "Inizio Produzione",
+    "disabilitato": 0
+  },
+  {
+    "id": 2,
+    "tipo": "scarto",
+    "descrizione": "Colore",
+    "disabilitato": 0
+  },
+  {
+    "id": 3,
+    "tipo": "scarto",
+    "descrizione": "Ritiro",
+    "disabilitato": 0
+  },
+  {
+    "id": 4,
+    "tipo": "fermo",
+    "descrizione": "Setup",
+    "disabilitato": 0
+  },
+  {
+    "id": 5,
+    "tipo": "fermo",
+    "descrizione": "Mancanza Materiale",
+    "disabilitato": 0
+  },
+  {
+    "id": 6,
+    "tipo": "fermo",
+    "descrizione": "Mancanza Operatore",
+    "disabilitato": 0
+  },
+  {
+    "id": 7,
+    "tipo": "fermo",
+    "descrizione": "Manutenzione",
+    "disabilitato": 0
+  }
+]
