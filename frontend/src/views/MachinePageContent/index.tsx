@@ -309,6 +309,10 @@ function MachinePageContent() {
 
   React.useEffect(() => {
     if (retrievedMachine !== undefined) {
+      console.log("ciao")
+      console.log(openProgress)
+      console.log(openStop)
+      console.log(retrievedMachine)
       autofixMachineState(dispatch, retrievedMachine, openProgress, openStop);
     }
   }, [retrievedMachine, openProgress.length, openStop.length]);
