@@ -2,29 +2,33 @@
 function launchQuery($queryDataload, $connection)
 {
     if ($queryDataload["dialect"] == "mysql") {
-        $queryExecution = $connection -> query($queryDataload["query"]);
+        $queryExecution = $connection->query($queryDataload["query"]);
 
         if ($queryDataload["method"] == "GET") {
             if ($queryExecution) {
                 $queryDataload["success"] = true;
                 $i = 0;
-                while ($row = $queryExecution -> fetch_assoc()) {
+                while ($row = $queryExecution->fetch_assoc()) {
                     foreach ($row as $r => $key) {
                         $queryDataload["dataload"][$i][$r] = $key;
                     }
                     $i++;
                 }
-                $queryExecution -> free_result();
             } else {
-                $queryDataload["dbError"] = "Error description: " . $connection -> error;
+                $queryDataload["dbError"] =
+                    "Error description: " . $connection->error;
             }
         }
-        if ($queryDataload["method"] == "INSERT" || $queryDataload["method"] == "UPDATE" || $queryDataload["method"] == "DELETE") {
-            $queryExecution -> free_result();
+        if (
+            $queryDataload["method"] == "INSERT" ||
+            $queryDataload["method"] == "UPDATE" ||
+            $queryDataload["method"] == "DELETE"
+        ) {
             if ($queryExecution) {
                 $queryDataload["success"] = true;
             } else {
-                $queryDataload["dbError"] = "Error description: " . $connection -> error;
+                $queryDataload["dbError"] =
+                    "Error description: " . $connection->error;
             }
         }
 

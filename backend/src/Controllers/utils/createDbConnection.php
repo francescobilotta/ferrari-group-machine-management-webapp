@@ -1,8 +1,19 @@
 <?php
-function createDbConnection($hostname, $port, $username, $password, $database, $dialect)
-{
+function createDbConnection(
+    $hostname,
+    $port,
+    $username,
+    $password,
+    $database,
+    $dialect
+) {
     if ($dialect == "mysql") {
-        $connection = new mysqli("$hostname","$username","$password","$database");
+        $connection = new mysqli(
+            "$hostname",
+            "$username",
+            "$password",
+            "$database"
+        );
         return $connection;
     }
 
@@ -14,7 +25,10 @@ function createDbConnection($hostname, $port, $username, $password, $database, $
         $connection = oci_pconnect($username, $password, $db);
         if (!$connection) {
             $e = oci_error();
-            trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+            trigger_error(
+                htmlentities($e["message"], ENT_QUOTES),
+                E_USER_ERROR
+            );
             return false;
         }
         return $connection;

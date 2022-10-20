@@ -5,7 +5,6 @@ $prefixPath = "/ferrari-group-machine-management-webapp/backend/public/";
 $website = "http://localhost";
 $absolutePrePath = "/var/www/html";
 
-
 // Oracle DB
 $oracleDbHost = "192.9.200.19";
 $oracleDbPort = "192.9.200.19";

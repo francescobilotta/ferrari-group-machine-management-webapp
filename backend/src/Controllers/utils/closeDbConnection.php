@@ -3,7 +3,7 @@
 function closeDbConnection($connection, $dialect)
 {
     if ($dialect == "mysql") {
-        $connection -> close();
+        $connection->close();
     }
 
     if ($dialect == "oracle") {

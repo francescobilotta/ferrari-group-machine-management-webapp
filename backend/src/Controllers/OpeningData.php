@@ -23,32 +23,33 @@ class OpeningData
         $this->request = $request;
         $this->response = $response;
         $this->data = file_get_contents(
-            $website .
-            $prefixPath .
-                "data/apertureimpianti.json"
+            $website . $prefixPath . "data/apertureimpianti.json"
         );
     }
 
     public function get()
     {
-        global $environment, $mysqlDbHost, $mysqlDbPort, $mysqlDbUsername, $mysqlDbPassword, $mysqlDb;
+        global $environment,
+            $mysqlDbHost,
+            $mysqlDbPort,
+            $mysqlDbUsername,
+            $mysqlDbPassword,
+            $mysqlDb;
         if ($environment === "development") {
-            $queryDataload = [
-                "method" => "GET",
-                "query" => "JSON",
-                "dialect" => "mysql",
-                "dataload" => [],
-                "success" => true,
-                "dbError" => "",
-            ];
-            $queryDataload["dataload"] = json_decode($this->data);
-            
+            $data = json_decode($this->data);
             header("Content-Type: application/json; charset=utf-8");
-            $this->response->setContent(json_encode($queryDataload));
+            $this->response->setContent(json_encode($data));
         } else {
-            $connection = createDbConnection($mysqlDbHost, $mysqlDbPort, $mysqlDbUsername, $mysqlDbPassword, $mysqlDb, "mysql");
-            if(!$connection -> connect_errno){
-                $query = "SELECT macchina, data, iniziopianificato, inizioeffettivo, finepianificata, fineeffettiva, datacreazione, modificato, disabilitato FROM `$mysqlDb`.`apertureimpianti`;";
+            $connection = createDbConnection(
+                $mysqlDbHost,
+                $mysqlDbPort,
+                $mysqlDbUsername,
+                $mysqlDbPassword,
+                $mysqlDb,
+                "mysql"
+            );
+            if (!$connection->connect_errno) {
+                $query = "SELECT * FROM `$mysqlDb`.`apertureimpianti`;";
                 $queryDataload = [
                     "method" => "GET",
                     "query" => $query,
@@ -60,13 +61,22 @@ class OpeningData
                 $queryResult = launchQuery($queryDataload, $connection);
                 closeDbConnection($connection, "mysql");
                 header("Content-Type: application/json; charset=utf-8");
-                $this->response->setContent(json_encode($queryResult));
+                if ($queryResult["success"]) {
+                    $this->response->setContent(
+                        json_encode($queryResult["dataload"])
+                    );
+                } else {
+                    $this->response->setStatusCode(500);
+                    $this->response->setContent(json_encode($queryResult));
+                }
             } else {
                 header("Content-Type: application/json; charset=utf-8");
                 $this->response->setStatusCode(500);
                 $queryDataload = [
                     "success" => false,
-                    "dbError" => "Failed to connect to MySQL: " . $connection -> connect_error,
+                    "dbError" =>
+                        "Failed to connect to MySQL: " .
+                        $connection->connect_error,
                 ];
                 $this->response->setContent(json_encode($queryDataload));
             }
@@ -75,9 +85,14 @@ class OpeningData
 
     public function post()
     {
-        global $environment;
-        global $absolutePrePath;
-        global $prefixPath;
+        global $environment,
+            $absolutePrePath,
+            $prefixPath,
+            $mysqlDbHost,
+            $mysqlDbPort,
+            $mysqlDbUsername,
+            $mysqlDbPassword,
+            $mysqlDb;
         if ($environment === "development") {
             $data = json_decode($this->data, true);
             $sentData = [
@@ -125,18 +140,98 @@ class OpeningData
                 $absolutePrePath . $prefixPath . "data/apertureimpianti.json",
                 $newJsonData
             );
+            header("Content-Type: application/json; charset=utf-8");
+            $this->response->setContent(json_encode($sentData));
         } else {
-            // $data = doSomething();
+            $connection = createDbConnection(
+                $mysqlDbHost,
+                $mysqlDbPort,
+                $mysqlDbUsername,
+                $mysqlDbPassword,
+                $mysqlDb,
+                "mysql"
+            );
+            $sentData = [
+                "macchina" => $this->request->getParameter("macchina"),
+                "data" => $this->request->getParameter("data"),
+                "iniziopianificato" => $this->request->getParameter(
+                    "iniziopianificato"
+                ),
+                "inizioeffettivo" => $this->request->getParameter(
+                    "inizioeffettivo"
+                ),
+                "finepianificata" => $this->request->getParameter(
+                    "finepianificata"
+                ),
+                "fineeffettiva" => $this->request->getParameter(
+                    "fineeffettiva"
+                ),
+                "datacreazione" => $this->request->getParameter(
+                    "datacreazione"
+                ),
+                "modificato" => (int) $this->request->getParameter(
+                    "modificato"
+                ),
+                "disabilitato" => (int) $this->request->getParameter(
+                    "disabilitato"
+                ),
+            ];
+            if (!$connection->connect_errno) {
+                $machine = $sentData["macchina"];
+                $date = $sentData["data"];
+                $plannedStart = $sentData["iniziopianificato"];
+                $effectiveStart = $sentData["inizioeffettivo"];
+                $plannedEnd = $sentData["finepianificata"];
+                $effectiveEnd = $sentData["fineeffettiva"];
+                $creationDate = $sentData["datacreazione"];
+                $modified = $sentData["modificato"];
+                $disabled = $sentData["disabilitato"];
+                $query = "INSERT INTO `$mysqlDb`.`apertureimpianti` (`macchina`, `data`, `iniziopianificato`,`inizioeffettivo`, `finepianificata`, `fineeffettiva`, `datacreazione`, `modificato`, `disabilitato`)
+                VALUES ('$machine', '$date', '$plannedStart', '$effectiveStart', '$plannedEnd', '$effectiveEnd', '$creationDate', '$modified', '$disabled');";
+                $queryDataload = [
+                    "method" => "INSERT",
+                    "query" => $query,
+                    "dialect" => "mysql",
+                    "dataload" => [],
+                    "success" => false,
+                    "dbError" => "",
+                ];
+                $queryDataload["dataload"] = $sentData;
+                $queryResult = launchQuery($queryDataload, $connection);
+                closeDbConnection($connection, "mysql");
+                header("Content-Type: application/json; charset=utf-8");
+                if ($queryResult["success"]) {
+                    $this->response->setContent(
+                        json_encode($queryResult["dataload"])
+                    );
+                } else {
+                    $this->response->setStatusCode(500);
+                    $this->response->setContent(json_encode($queryResult));
+                }
+            } else {
+                header("Content-Type: application/json; charset=utf-8");
+                $this->response->setStatusCode(500);
+                $queryDataload = [
+                    "success" => false,
+                    "dbError" =>
+                        "Failed to connect to MySQL: " .
+                        $connection->connect_error,
+                ];
+                $this->response->setContent(json_encode($queryDataload));
+            }
         }
-        header("Content-Type: application/json; charset=utf-8");
-        $this->response->setContent(json_encode($sentData));
     }
 
     public function put()
     {
-        global $environment;
-        global $absolutePrePath;
-        global $prefixPath;
+        global $environment,
+            $absolutePrePath,
+            $prefixPath,
+            $mysqlDbHost,
+            $mysqlDbPort,
+            $mysqlDbUsername,
+            $mysqlDbPassword,
+            $mysqlDb;
         if ($environment === "development") {
             $data = json_decode($this->data, true);
             $sentData = [
@@ -181,24 +276,103 @@ class OpeningData
                 }
             }
             $newJsonData = json_encode($data);
-
             file_put_contents(
                 $absolutePrePath . $prefixPath . "data/apertureimpianti.json",
                 $newJsonData
             );
+            header("Content-Type: application/json; charset=utf-8");
+            $this->response->setContent(json_encode($sentData));
         } else {
-            // $data = doSomething();
+            $connection = createDbConnection(
+                $mysqlDbHost,
+                $mysqlDbPort,
+                $mysqlDbUsername,
+                $mysqlDbPassword,
+                $mysqlDb,
+                "mysql"
+            );
+            $sentData = [
+                "id" => (int) $this->request->getParameter("id"),
+                "macchina" => $this->request->getParameter("macchina"),
+                "data" => $this->request->getParameter("data"),
+                "iniziopianificato" => $this->request->getParameter(
+                    "iniziopianificato"
+                ),
+                "inizioeffettivo" => $this->request->getParameter(
+                    "inizioeffettivo"
+                ),
+                "finepianificata" => $this->request->getParameter(
+                    "finepianificata"
+                ),
+                "fineeffettiva" => $this->request->getParameter(
+                    "fineeffettiva"
+                ),
+                "datacreazione" => $this->request->getParameter(
+                    "datacreazione"
+                ),
+                "modificato" => (int) $this->request->getParameter(
+                    "modificato"
+                ),
+                "disabilitato" => (int) $this->request->getParameter(
+                    "disabilitato"
+                ),
+            ];
+            if (!$connection->connect_errno) {
+                $id = $sentData["id"];
+                $machine = $sentData["macchina"];
+                $date = $sentData["data"];
+                $plannedStart = $sentData["iniziopianificato"];
+                $effectiveStart = $sentData["inizioeffettivo"];
+                $plannedEnd = $sentData["finepianificata"];
+                $effectiveEnd = $sentData["fineeffettiva"];
+                $creationDate = $sentData["datacreazione"];
+                $modified = $sentData["modificato"];
+                $disabled = $sentData["disabilitato"];
+                $query = "UPDATE apertureimpianti a SET a.macchina = '$machine', a.data = '$date', a.iniziopianificato = '$plannedStart', a.inizioeffettivo = '$effectiveStart', a.finepianificata = '$plannedEnd', a.fineeffettiva = '$effectiveEnd', a.datacreazione = '$creationDate', a.modificato = '$modified', a.disabilitato = '$disabled' WHERE a.id = '$id'";
+                $queryDataload = [
+                    "method" => "UPDATE",
+                    "query" => $query,
+                    "dialect" => "mysql",
+                    "dataload" => [],
+                    "success" => false,
+                    "dbError" => "",
+                ];
+                $queryDataload["dataload"] = $sentData;
+                $queryResult = launchQuery($queryDataload, $connection);
+                closeDbConnection($connection, "mysql");
+                header("Content-Type: application/json; charset=utf-8");
+                if ($queryResult["success"]) {
+                    $this->response->setContent(
+                        json_encode($queryResult["dataload"])
+                    );
+                } else {
+                    $this->response->setStatusCode(500);
+                    $this->response->setContent(json_encode($queryResult));
+                }
+            } else {
+                header("Content-Type: application/json; charset=utf-8");
+                $this->response->setStatusCode(500);
+                $queryDataload = [
+                    "success" => false,
+                    "dbError" =>
+                        "Failed to connect to MySQL: " .
+                        $connection->connect_error,
+                ];
+                $this->response->setContent(json_encode($queryDataload));
+            }
         }
-
-        header("Content-Type: application/json; charset=utf-8");
-        $this->response->setContent(json_encode($sentData));
     }
 
     public function delete()
     {
-        global $environment;
-        global $absolutePrePath;
-        global $prefixPath;
+        global $environment,
+            $absolutePrePath,
+            $prefixPath,
+            $mysqlDbHost,
+            $mysqlDbPort,
+            $mysqlDbUsername,
+            $mysqlDbPassword,
+            $mysqlDb;
         if ($environment === "development") {
             $data = json_decode($this->data, true);
             $sentData = (int) $this->request->getParameter("id");
@@ -213,11 +387,52 @@ class OpeningData
                 $absolutePrePath . $prefixPath . "data/apertureimpianti.json",
                 $newJsonData
             );
+            header("Content-Type: application/json; charset=utf-8");
+            $this->response->setContent(json_encode($sentData));
         } else {
-            // $data = doSomething();
+            $connection = createDbConnection(
+                $mysqlDbHost,
+                $mysqlDbPort,
+                $mysqlDbUsername,
+                $mysqlDbPassword,
+                $mysqlDb,
+                "mysql"
+            );
+            $sentData = (int) $this->request->getParameter("id");
+            if (!$connection->connect_errno) {
+                $id = $sentData;
+                $query = "DELETE FROM `$mysqlDb`.`apertureimpianti` WHERE id = '$id'";
+                $queryDataload = [
+                    "method" => "DELETE",
+                    "query" => $query,
+                    "dialect" => "mysql",
+                    "dataload" => [],
+                    "success" => false,
+                    "dbError" => "",
+                ];
+                $queryDataload["dataload"] = $sentData;
+                $queryResult = launchQuery($queryDataload, $connection);
+                closeDbConnection($connection, "mysql");
+                header("Content-Type: application/json; charset=utf-8");
+                if ($queryResult["success"]) {
+                    $this->response->setContent(
+                        json_encode($queryResult["dataload"])
+                    );
+                } else {
+                    $this->response->setStatusCode(500);
+                    $this->response->setContent(json_encode($queryResult));
+                }
+            } else {
+                header("Content-Type: application/json; charset=utf-8");
+                $this->response->setStatusCode(500);
+                $queryDataload = [
+                    "success" => false,
+                    "dbError" =>
+                        "Failed to connect to MySQL: " .
+                        $connection->connect_error,
+                ];
+                $this->response->setContent(json_encode($queryDataload));
+            }
         }
-
-        header("Content-Type: application/json; charset=utf-8");
-        $this->response->setContent(json_encode($sentData));
     }
 }
