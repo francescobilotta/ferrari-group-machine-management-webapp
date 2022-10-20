@@ -51,6 +51,12 @@ export function autofixMachineState(
       PI_NOTE: machine.PI_NOTE,
       PRIORITA: machine.PRIORITA,
     };
+    console.log(openProgress.length);
+    console.log(typeof openProgress.length);
+    console.log(openStop.length);
+    console.log(typeof openStop.length);
+    console.log(machine.PRIORITA);
+    console.log(typeof machine.PRIORITA);
     newMachine.PRIORITA = 1;
     updateMachine(dispatch, newMachine);
   }
