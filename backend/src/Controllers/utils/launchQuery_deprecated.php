@@ -1,55 +1,67 @@
 <?php
-function launchQuery($queryDataload, $connection)
+function launchQuery($method, $query, $connection, $dialect)
 {
-    if ($queryDataload["dialect"] == "mysql") {
-        $queryExecution = $connection -> query($queryDataload["query"]);
+    $queryDataload = (object) [
+        "method" => $method,
+        "query" => $query,
+        "dialect" => $dialect,
+        "dataload" => [],
+        "success" => false,
+        "dbError" => "",
+    ];
 
-        if ($queryDataload["method"] == "GET") {
+    if ($dialect == "mysql") {
+        $queryExecution = mysql_query($query);
+
+        if ($method == "GET") {
             if ($queryExecution) {
                 $queryDataload["success"] = true;
                 $i = 0;
-                while ($row = $queryExecution -> fetch_assoc()) {
+                while ($row = mysql_fetch_assoc($queryExecution)) {
                     foreach ($row as $r => $key) {
                         $queryDataload["dataload"][$i][$r] = $key;
                     }
                     $i++;
                 }
-                $queryExecution -> free_result();
             } else {
-                $queryDataload["dbError"] = "Error description: " . $connection -> error;
+                $queryDataload["dbError"] = mysql_error();
             }
         }
-        if ($queryDataload["method"] == "INSERT" || $queryDataload["method"] == "UPDATE" || $queryDataload["method"] == "DELETE") {
-            $queryExecution -> free_result();
-            if ($queryExecution) {
-                $queryDataload["success"] = true;
-            } else {
-                $queryDataload["dbError"] = "Error description: " . $connection -> error;
+        if ($method == "INSERT" || $method == "UPDATE" || $method == "DELETE") {
+            if (!$queryExecution) {
+                $queryDataload["dbError"] = mysql_error();
             }
         }
 
         return $queryDataload;
     }
 
-    if ($queryDataload["dialect"] == "oracle") {
-        $stid = oci_parse($connection, $queryDataload["query"]);
+    if ($dialect == "oracle") {
+        $stid = oci_parse($connection, $query);
 
         if (!$stid) {
             $e = oci_error($connection);
+
+            $queryDataload["success"] = false;
             $queryDataload["dbError"] = $e;
+
             return $queryDataload;
         }
 
         $r = oci_execute($stid);
         if (!$r) {
             $e = oci_error($stid); // For oci_execute errors pass the statement handle
+
+            $dataload[] = $query;
+            $queryDataload["success"] = false;
             $queryDataload["dbError"] = $e;
+
             return $queryDataload;
         }
 
         $queryDataload["success"] = true;
 
-        if ($queryDataload["method"] == "GET") {
+        if ($method == "GET") {
             while (
                 $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)
             ) {
