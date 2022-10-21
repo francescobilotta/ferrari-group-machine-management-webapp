@@ -275,7 +275,7 @@ class StopData
                 $disabled = $sentData["disabilitato"];
                 $query = "UPDATE fermi f SET f.macchina = '$machine', f.data = '$date', f.iniziofermo = '$stopStart', f.finefermo = '$stopEnd', f.causale = '$reason', f.datacreazione = '$creationDate', f.disabilitato = '$disabled' WHERE f.id = '$id'";
                 $queryDataload = [
-                    "method" => "PUT",
+                    "method" => "UPDATE",
                     "query" => $query,
                     "dialect" => "mysql",
                     "dataload" => [],

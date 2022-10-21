@@ -278,7 +278,7 @@ class QtyDiscardedData
                 $query = "UPDATE ordiniqtascartata q SET q.opsid = '$opsid', q.data = '$date', q.qtascartata = '$qtyDiscarded', q.causale = '$reason', q.datacreazione = '$creationDate', q.disabilitato = '$disabled' WHERE q.id = '$id'";
                 
                 $queryDataload = [
-                    "method" => "PUT",
+                    "method" => "UPDATE",
                     "query" => $query,
                     "dialect" => "mysql",
                     "dataload" => [],

@@ -285,7 +285,7 @@ class ProgressData
                 $disabled = $sentData["disabilitato"];
                 $query = "UPDATE ordiniavanzamenti a SET a.opsid = '$opsid', a.data = '$date', a.inizioavanzamento = '$progressStart', a.fineavanzamento = '$progressEnd', a.datacreazione = '$creationDate', a.disabilitato = '$disabled' WHERE a.id = '$id'";
                 $queryDataload = [
-                    "method" => "PUT",
+                    "method" => "UPDATE",
                     "query" => $query,
                     "dialect" => "mysql",
                     "dataload" => [],

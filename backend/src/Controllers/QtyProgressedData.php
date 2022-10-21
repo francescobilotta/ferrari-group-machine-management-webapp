@@ -270,7 +270,7 @@ class QtyProgressedData
                 $disabled = $sentData["disabilitato"];
                 $query = "UPDATE ordiniqtaavanzata q SET q.opsid = '$opsid', q.data = '$date', q.qtaavanzata = '$qtyProgressed', q.datacreazione = '$creationDate', q.disabilitato = '$disabled' WHERE q.id = '$id'";
                 $queryDataload = [
-                    "method" => "PUT",
+                    "method" => "UPDATE",
                     "query" => $query,
                     "dialect" => "mysql",
                     "dataload" => [],
