@@ -89,7 +89,7 @@ function SingleCreationForm({
         );
       }
     }
-  }, [finishesNextDay, date, startHour, endHour]);
+  }, [finishesNextDay, date]);
 
   return (
     <Stack direction="row" spacing={3}>
