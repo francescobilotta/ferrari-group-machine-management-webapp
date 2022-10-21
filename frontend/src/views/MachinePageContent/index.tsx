@@ -24,6 +24,7 @@ import { useSnackbar } from "notistack";
 import * as React from "react";
 import { useParams } from "react-router-dom";
 
+import { getProgressesAxios, getStopsAxios } from "../../api/services";
 import StopLight from "../../components/StopLight";
 import { useAppDispatch } from "../../hooks";
 import {
@@ -192,41 +193,41 @@ function MachinePageContent() {
     if (
       currentOrder !== undefined &&
       retrievedMachine !== undefined &&
-      progresses &&
-      stops &&
       openings
     ) {
-      if (
-        isProgressStartAcceptable(
-          dispatch,
-          enqueueSnackbar,
-          openings,
-          stops,
-          progresses,
-          currentOrder.id,
-          retrievedMachine.COD_MACCHINA
-        )
-      ) {
+      Promise.all([getStopsAxios(), getProgressesAxios()]).then((valArray) => {
         if (
-          updateOpeningIfNeeded(
+          isProgressStartAcceptable(
             dispatch,
             enqueueSnackbar,
             openings,
+            valArray[0].data,
+            valArray[1].data,
+            currentOrder.id,
             retrievedMachine.COD_MACCHINA
           )
         ) {
-          const newProgress = {
-            data: moment().format("YYYY-MM-DD"),
-            datacreazione: moment().format("YYYY-MM-DD HH:mm:ss"),
-            disabilitato: 0,
-            fineavanzamento: "0000-00-00 00:00:00",
-            inizioavanzamento: moment().format("YYYY-MM-DD HH:mm:ss"),
-            opsid: currentOrder.id,
-          };
-          createProgress(dispatch, newProgress);
-          window.location.reload();
+          if (
+            updateOpeningIfNeeded(
+              dispatch,
+              enqueueSnackbar,
+              openings,
+              retrievedMachine.COD_MACCHINA
+            )
+          ) {
+            const newProgress = {
+              data: moment().format("YYYY-MM-DD"),
+              datacreazione: moment().format("YYYY-MM-DD HH:mm:ss"),
+              disabilitato: 0,
+              fineavanzamento: "0000-00-00 00:00:00",
+              inizioavanzamento: moment().format("YYYY-MM-DD HH:mm:ss"),
+              opsid: currentOrder.id,
+            };
+            createProgress(dispatch, newProgress);
+            fetchProgresses(dispatch);
+          }
         }
-      }
+      });
     }
   };
 
@@ -239,43 +240,43 @@ function MachinePageContent() {
       reason !== undefined &&
       currentOrder !== undefined &&
       retrievedMachine !== undefined &&
-      progresses &&
-      stops &&
       openings
     ) {
-      if (
-        isStopStartAcceptable(
-          dispatch,
-          enqueueSnackbar,
-          openings,
-          stops,
-          progresses,
-          currentOrder.id,
-          retrievedMachine.COD_MACCHINA
-        )
-      ) {
+      Promise.all([getStopsAxios(), getProgressesAxios()]).then((valArray) => {
         if (
-          updateOpeningIfNeeded(
+          isStopStartAcceptable(
             dispatch,
             enqueueSnackbar,
             openings,
+            valArray[0].data,
+            valArray[1].data,
+            currentOrder.id,
             retrievedMachine.COD_MACCHINA
           )
         ) {
-          const newStop = {
-            causale: reason,
-            data: moment().format("YYYY-MM-DD"),
-            datacreazione: moment().format("YYYY-MM-DD HH:mm:ss"),
-            disabilitato: 0,
-            finefermo: "0000-00-00 00:00:00",
-            iniziofermo: moment().format("YYYY-MM-DD HH:mm:ss"),
-            macchina: retrievedMachine.COD_MACCHINA,
-          };
-          createStop(dispatch, newStop);
-          setOpenStopCreationDialog(false);
-          window.location.reload();
+          if (
+            updateOpeningIfNeeded(
+              dispatch,
+              enqueueSnackbar,
+              openings,
+              retrievedMachine.COD_MACCHINA
+            )
+          ) {
+            const newStop = {
+              causale: reason,
+              data: moment().format("YYYY-MM-DD"),
+              datacreazione: moment().format("YYYY-MM-DD HH:mm:ss"),
+              disabilitato: 0,
+              finefermo: "0000-00-00 00:00:00",
+              iniziofermo: moment().format("YYYY-MM-DD HH:mm:ss"),
+              macchina: retrievedMachine.COD_MACCHINA,
+            };
+            createStop(dispatch, newStop);
+            setOpenStopCreationDialog(false);
+            fetchStops(dispatch);
+          }
         }
-      }
+      });
     }
   };
 
@@ -355,6 +356,16 @@ function MachinePageContent() {
               {retrievedMachine !== undefined && (
                 <StopLight machineState={retrievedMachine.PRIORITA} />
               )}
+              <Button
+                sx={{ fontWeight: 600, marginLeft: 3 }}
+                variant="contained"
+                onClick={() => {
+                  fetchProgresses(dispatch);
+                  fetchStops(dispatch);
+                }}
+              >
+                Re-fetch
+              </Button>
               {currentOrder && daysMissingQty && daysMissingQty.length > 0 && (
                 <>
                   <Button
