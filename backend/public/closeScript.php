@@ -1,31 +1,27 @@
 <?php
 // header('Content-Type: application/json; charset=utf-8');
 
-$prefixPath = "/ferrari-group-machine-management-webapp/backend/public/";
-putenv("PREFIX_PATH=$prefixPath");
+include "./env2.php";
 
 function createUrl($strParameters)
 {
-    $url =
-        "http://localhost" .
-        getenv("PREFIX_PATH") .
-        "index.php" .
-        $strParameters;
+    global $website, $prefixPath;
+    $url = $website . $prefixPath . "index.php" . $strParameters;
     $url = preg_replace("/\s+/", "%20", $url);
     return $url;
 }
 
 $openingsData = file_get_contents(
-    "http://localhost/ferrari-group-machine-management-webapp/backend/public/index.php/opening/get"
+    $website . $prefixPath . "index.php/opening/get"
 );
 $stopsData = file_get_contents(
-    "http://localhost/ferrari-group-machine-management-webapp/backend/public/index.php/stop/get"
+    $website . $prefixPath . "index.php/stop/get"
 );
 $progressesData = file_get_contents(
-    "http://localhost/ferrari-group-machine-management-webapp/backend/public/index.php/progress/get"
+    $website . $prefixPath . "index.php/progress/get"
 );
 $machinesData = file_get_contents(
-    "http://localhost/ferrari-group-machine-management-webapp/backend/public/index.php/machine/get"
+    $website . $prefixPath . "index.php/machine/get"
 );
 
 $openings = json_decode($openingsData, true);
