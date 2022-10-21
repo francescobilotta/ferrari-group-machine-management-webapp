@@ -15,7 +15,7 @@ function ToolbarContent() {
   return (
     <>
       <Link
-        href="/"
+        href="/admin"
         style={{ textDecoration: "none" }}
         sx={{ ...style.link, flexGrow: 1 }}
       >
