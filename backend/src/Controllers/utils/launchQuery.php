@@ -10,7 +10,12 @@ function launchQuery($queryDataload, $connection)
                 $i = 0;
                 while ($row = $queryExecution->fetch_assoc()) {
                     foreach ($row as $r => $key) {
-                        $queryDataload["dataload"][$i][$r] = $key;
+                        $arrayNumericalColumns = ["id", "modificato", "disabilitato", "causale", "PRIORITA", "seq", "opsid", "qtaavanzata", "qtascartata"];
+                        if(array_search($r, $arrayNumericalColumns) !== false){
+                            $queryDataload["dataload"][$i][$r] = (int) $key;
+                        } else {
+                            $queryDataload["dataload"][$i][$r] = $key;
+                        }
                     }
                     $i++;
                 }
