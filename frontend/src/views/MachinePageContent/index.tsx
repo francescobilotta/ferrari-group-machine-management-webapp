@@ -224,7 +224,7 @@ function MachinePageContent() {
             opsid: currentOrder.id,
           };
           createProgress(dispatch, newProgress);
-          fetchProgresses(dispatch);
+          window.location.reload();
         }
       }
     }
@@ -273,7 +273,7 @@ function MachinePageContent() {
           };
           createStop(dispatch, newStop);
           setOpenStopCreationDialog(false);
-          fetchStops(dispatch);
+          window.location.reload();
         }
       }
     }
