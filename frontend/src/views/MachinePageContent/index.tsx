@@ -322,7 +322,20 @@ function MachinePageContent() {
   }, [daysMissingQty.length]);
 
   return retrievedMachine ? (
-    <Stack direction="column" sx={{ maxWidth: 860 }}>
+    <Stack
+      direction="column"
+      sx={{
+        "@media (max-width: 1081px)": {
+          maxWidth: 1000,
+        },
+        "@media (max-width: 861px)": {
+          maxWidth: 800,
+        },
+        "@media (min-width: 1081px)": {
+          maxWidth: "100%",
+        },
+      }}
+    >
       {machineError ||
         progressError ||
         stopError ||
