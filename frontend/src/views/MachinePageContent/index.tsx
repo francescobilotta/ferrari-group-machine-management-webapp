@@ -306,7 +306,7 @@ function MachinePageContent() {
     } else {
       setOpenStop([]);
     }
-  }, [progresses.length, stops.length]);
+  }, [progresses.length, stops.length, currentOrder, retrievedMachine]);
 
   React.useEffect(() => {
     if (retrievedMachine !== undefined) {
