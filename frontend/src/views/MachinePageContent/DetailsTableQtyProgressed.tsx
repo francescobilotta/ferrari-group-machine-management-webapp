@@ -54,9 +54,9 @@ function DetailsTableRowQtyProgressed({
     if (typeof newQtyProgressed === "number") {
       if (newQtyProgressed > highestQtyProgressed) {
         updateQtyProgressed(dispatch, {
-          data: moment().format("YYYY-MM-DD"),
-          datacreazione: moment().format("YYYY-MM-DD HH:mm:ss"),
-          disabilitato: 0,
+          data: qtyProgressed.data,
+          datacreazione: qtyProgressed.datacreazione,
+          disabilitato: qtyProgressed.disabilitato,
           id: qtyProgressed.id,
           opsid: qtyProgressed.opsid,
           qtaavanzata: Math.abs(newQtyProgressed),
