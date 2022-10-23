@@ -1,5 +1,6 @@
 import { Link, useMediaQuery } from "@mui/material";
 import * as React from "react";
+import { Link as RouterLink } from "react-router-dom";
 
 const style = {
   link: {
@@ -15,44 +16,50 @@ function ToolbarContent() {
   return (
     <>
       <Link
-        href="/admin"
+        component={RouterLink}
         style={{ textDecoration: "none" }}
         sx={{ ...style.link, flexGrow: 1 }}
+        to="/admin"
       >
         {!mobileDevice && "Macchine"}
       </Link>
       <Link
-        href="/admin/openings-dashboard"
+        component={RouterLink}
         style={{ textDecoration: "none" }}
         sx={{ ...style.link, flexGrow: 1 }}
+        to="/admin/openings-dashboard"
       >
         {!mobileDevice && "Aperture"}
       </Link>
       <Link
-        href="/admin/progresses-dashboard"
+        component={RouterLink}
         style={{ textDecoration: "none" }}
         sx={{ ...style.link, flexGrow: 1 }}
+        to="/admin/progresses-dashboard"
       >
         {!mobileDevice && "Avanzamenti"}
       </Link>
       <Link
-        href="/admin/stops-dashboard"
+        component={RouterLink}
         style={{ textDecoration: "none" }}
         sx={{ ...style.link, flexGrow: 1 }}
+        to="/admin/stops-dashboard"
       >
         {!mobileDevice && "Fermi"}
       </Link>
       <Link
-        href="/admin/qtyprogressed-dashboard"
+        component={RouterLink}
         style={{ textDecoration: "none" }}
         sx={{ ...style.link, flexGrow: 1 }}
+        to="/admin/qtyprogressed-dashboard"
       >
         {!mobileDevice && "Qta Avanzate"}
       </Link>
       <Link
-        href="/admin/qtydiscarded-dashboard"
+        component={RouterLink}
         style={{ textDecoration: "none" }}
         sx={{ ...style.link, flexGrow: 1 }}
+        to="/admin/qtydiscarded-dashboard"
       >
         {!mobileDevice && "Qta Scartate"}
       </Link>
