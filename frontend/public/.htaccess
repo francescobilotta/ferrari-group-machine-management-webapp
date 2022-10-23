@@ -1,0 +1,7 @@
+RewriteEngine On
+RewriteBase /ferrari-group-machine-management-webapp/frontend/build
+RewriteRule ^index\.html$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-l
+RewriteRule . /ferrari-group-machine-management-webapp/frontend/build/index.html [L]
