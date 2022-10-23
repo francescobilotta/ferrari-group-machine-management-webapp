@@ -41,7 +41,7 @@ root.render(
               vertical: "top",
             }}
           >
-            <BrowserRouter>
+            <BrowserRouter basename="/ferrari-group-machine-management-webapp/frontend/build">
               <App />
             </BrowserRouter>
           </SnackbarProvider>
